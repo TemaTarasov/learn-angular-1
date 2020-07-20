@@ -1,0 +1,70 @@
+<nav class="navbar navbar-dark bg-dark">
+  <div class="navbar-brand">LOGO</div>
+
+  <div class="dropdown">
+    <button
+      class="btn btn-secondary dropdown-toggle"
+      type="button"
+      id="dropdownMenuButton"
+      data-toggle="dropdown"
+      aria-haspopup="true"
+      aria-expanded="false"
+    >
+      {{ $ctrl.name }}
+    </button>
+
+    <div class="dropdown-menu" style="left: initial; right: 0;" aria-labelledby="dropdownMenuButton">
+      <a href="#" class="dropdown-item" ng-click="$ctrl.handleLogout($event)">logout</a>
+    </div>
+  </div>
+</nav>
+
+<main class="container-fluid p-3" style="height: calc(100% - (56px + 54px)); overflow: auto;">
+  <div class="col-6 offset-3">
+    <form name="$ctrl.form">
+      <div ng-repeat="(key, item) in $ctrl.data" class="d-flex align-items-start border-bottom pt-3 pb-3">
+        <div class="w-100 pr-3">
+          <art-input
+          class="d-block"
+          name="{{ key }}.login"
+          label="Login"
+          value="item.login"
+          required="true"
+          invalid="$ctrl.getError($ctrl.form, key, 'login')"
+        ></art-input>
+
+        <art-input
+          class="d-block"
+          name="{{ key }}.password"
+          type="password"
+          label="Password"
+          value="item.password"
+          required="true"
+          invalid="$ctrl.getError($ctrl.form, key, 'password')"
+        ></art-input>
+        </div>
+
+        <button type="button" class="btn btn-outline-danger flex-shrink-0" style="margin-top: 32px;" ng-click="$ctrl.handleRemove(key)">
+          <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-bucket" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M8 1.5A4.5 4.5 0 0 0 3.5 6h-1a5.5 5.5 0 1 1 11 0h-1A4.5 4.5 0 0 0 8 1.5z"/>
+            <path fill-rule="evenodd" d="M1.61 5.687A.5.5 0 0 1 2 5.5h12a.5.5 0 0 1 .488.608l-1.826 8.217a1.5 1.5 0 0 1-1.464 1.175H4.802a1.5 1.5 0 0 1-1.464-1.175L1.512 6.108a.5.5 0 0 1 .098-.42zm1.013.813l1.691 7.608a.5.5 0 0 0 .488.392h6.396a.5.5 0 0 0 .488-.392l1.69-7.608H2.624z"/>
+          </svg>
+        </button>
+      </div>
+    </form>
+
+    <div>
+      <button type="button" class="btn btn-primary mt-4" ng-click="$ctrl.handleClick()">Add</button>
+    </div>
+  </div>
+</main>
+
+<footer class="navbar navbar-dark bg-dark">
+  <div class="navbar-brand"></div>
+
+  <div>
+    <button type="button" class="btn btn-secondary mr-3" ng-class="{ disabled: $ctrl.getCancelDisabled($ctrl.initial, $ctrl.data) }" ng-click="$ctrl.handleCancel()">Cancel</button>
+
+    <button type="button" class="btn btn-primary" ng-class="{ disabled: $ctrl.getSaveDisabled($ctrl.data) }" ng-click="$ctrl.handleSave($ctrl.data)">Save</button>
+  </div>
+</footer>
